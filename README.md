@@ -4,7 +4,9 @@ E-commerce completo, mobile-first, com backend real: catálogo, autenticação
 JWT, carrinho, checkout com **pagamento via Mercado Pago**, painel
 administrativo e banco de dados Postgres versionado por migrations.
 
-> 🔗 **Demo:** _adicione aqui o link do deploy (Netlify/Vercel + Render/Railway)_
+> 🔗 **Demo:** https://techstore-demo-anemilton.netlify.app
+> 🚀 **API:** https://techstore-api-0vp3.onrender.com
+> 📚 **Swagger:** https://techstore-api-0vp3.onrender.com/swagger-ui.html
 > 🎥 **Vídeo/GIF:** _adicione aqui um screen recording curto do fluxo de compra_
 
 ---

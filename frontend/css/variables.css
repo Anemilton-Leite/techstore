@@ -1,0 +1,33 @@
+:root {
+  /* Color */
+  --color-bg: #101317;
+  --color-surface: #171B21;
+  --color-surface-alt: #1D222B;
+  --color-border: #2A303A;
+  --color-text: #EDEFF3;
+  --color-text-muted: #949BAA;
+
+  --color-primary: #FFB020;
+  --color-primary-hover: #FFC658;
+  --color-on-primary: #14120A;
+
+  --color-danger: #FF5470;
+  --color-success: #3ED598;
+  --color-white: #FFFFFF;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Layout */
+  --container-width: 1240px;
+  --header-height: 64px;
+
+  /* Motion */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+}

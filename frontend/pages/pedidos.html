@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Consulte seus pedidos na TechStore.">
+<title>Meus pedidos | TechStore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<header class="site-header"><div class="container header-bar"><a href="../index.html" class="logo">TECH<span>STORE</span></a><nav class="account-nav" aria-label="Navegação da conta"><a href="./conta.html">Minha conta</a><a href="./pedidos.html" class="is-active" aria-current="page">Meus pedidos</a></nav><a href="../index.html" class="icon-btn" aria-label="Voltar para loja">🛍</a></div></header>
+<main class="orders-page"><div class="container"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Início</a><span aria-hidden="true">/</span><a href="./conta.html">Minha conta</a><span aria-hidden="true">/</span><span>Meus pedidos</span></nav><section class="orders-heading"><span class="account-eyebrow">HISTÓRICO</span><h1>Meus pedidos</h1><p>Acompanhe suas compras e o status de cada pedido.</p></section>
+<section id="orders-auth-required" class="orders-state" hidden><article class="account-card"><h2>Entre para ver seus pedidos</h2><p>Seu histórico de compras está associado à sua conta.</p><a href="./login.html?redirect=pedidos" class="btn btn-primary">Entrar</a></article></section>
+<section id="orders-loading" class="orders-state" hidden><div class="loading-spinner" aria-hidden="true"></div><p>Carregando seus pedidos...</p></section>
+<section id="orders-empty" class="orders-state" hidden><article class="account-card"><div class="orders-empty-icon" aria-hidden="true">📦</div><h2>Você ainda não fez pedidos</h2><p>Seus pedidos aparecerão aqui depois da primeira compra.</p><a href="./produtos.html" class="btn btn-primary">Explorar produtos</a></article></section>
+<section id="orders-content" hidden aria-live="polite"><div class="orders-list" id="orders-list"></div></section>
+<section id="orders-error" class="orders-state" hidden><article class="account-card"><h2>Não foi possível carregar seus pedidos</h2><p id="orders-error-message">Tente novamente.</p><button type="button" class="btn btn-primary" id="retry-orders">Tentar novamente</button></article></section>
+</div></main>
+<script src="../js/config.js"></script><script type="module" src="../js/pages/pedidos.js"></script>
+</body>
+</html>

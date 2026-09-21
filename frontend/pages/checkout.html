@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Finalize sua compra na TechStore de forma rápida e segura.">
+<meta name="theme-color" content="#101317">
+<title>Checkout | TechStore</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<a href="#main-content" class="sr-only">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="container header-bar">
+    <a href="../index.html" class="logo" aria-label="TechStore - página inicial">TECH<span>STORE</span></a>
+
+    <div class="header-actions" style="margin-left:auto;">
+      <a href="./produtos.html" class="nav-link">Continuar comprando</a>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <span class="current">Checkout</span>
+    </nav>
+  </div>
+
+  <section class="container checkout-page">
+
+    <section class="checkout-auth-card" id="checkoutAuth" hidden>
+      <div class="checkout-section">
+        <span class="checkout-card-label">SUA CONTA</span>
+        <h1>Entre para continuar</h1>
+        <p>Você precisa estar autenticado para finalizar o pedido.</p>
+        <a href="./login.html?redirect=checkout" class="btn btn-primary btn-block">Entrar na conta</a>
+        <a href="./cadastro.html" class="btn btn-outline btn-block checkout-secondary-action">Criar conta</a>
+      </div>
+    </section>
+
+    <section class="checkout-empty" id="checkoutEmpty" hidden>
+      <div class="checkout-section">
+        <div class="checkout-empty-icon" aria-hidden="true">🛒</div>
+        <h1>Sua sacola está vazia</h1>
+        <p>Adicione produtos antes de continuar para o checkout.</p>
+        <a href="./produtos.html" class="btn btn-primary">Ver produtos</a>
+      </div>
+    </section>
+
+    <div id="checkoutWrap">
+
+      <div class="checkout-steps">
+        <div class="checkout-step is-active">Identificação</div>
+        <div class="checkout-step is-active">Entrega</div>
+        <div class="checkout-step is-active">Pagamento</div>
+      </div>
+
+      <form id="checkoutForm" novalidate>
+        <div class="checkout-grid">
+
+          <div>
+            <section class="checkout-section">
+              <h2>Seus dados</h2>
+
+              <div class="field">
+                <label for="fullName">Nome completo</label>
+                <input type="text" id="fullName" name="fullName" required autocomplete="name">
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="email">E-mail</label>
+                  <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                <div class="field">
+                  <label for="phone">Telefone</label>
+                  <input type="tel" id="phone" name="phone" required autocomplete="tel">
+                </div>
+              </div>
+            </section>
+
+            <section class="checkout-section">
+              <div class="checkout-card-header"><div><span class="checkout-card-label">02</span><h2>Endereço de entrega</h2></div><a href="./enderecos.html" class="btn btn-outline">Gerenciar</a></div>
+              <div id="checkout-addresses" class="checkout-addresses"></div>
+              <p id="checkout-address-message" class="form-message" role="alert"></p>
+            </section>
+
+            <section class="checkout-section">
+              <h2>Forma de pagamento</h2>
+
+              <div class="payment-options">
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="pix" checked>
+                  <span>PIX · aprovação imediata</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="card">
+                  <span>Cartão de crédito · em até 10x</span>
+                </label>
+                <p class="checkout-payment-note">
+                  Nesta versão, o pagamento é criado em modo de teste e fica pendente até a confirmação do gateway.
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <aside class="order-summary">
+            <h2>Resumo do pedido</h2>
+
+            <div id="orderItems"></div>
+
+            <div class="checkout-summary-lines">
+              <div>
+                <span>Subtotal</span>
+                <strong id="orderSubtotal">R$ 0,00</strong>
+              </div>
+              <div>
+                <span>Frete estimado</span>
+                <strong id="orderShipping">R$ 19,90</strong>
+              </div>
+            </div>
+
+            <div class="order-total">
+              <span>Total</span>
+              <strong id="orderTotal">R$ 0,00</strong>
+            </div>
+
+            <p id="checkoutError" class="form-message" role="alert" aria-live="polite" hidden></p>
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px;">Finalizar pedido</button>
+          </aside>
+
+        </div>
+      </form>
+    </div>
+
+    <div class="checkout-success" id="checkoutSuccess" hidden>
+      <div class="checkout-success-icon" aria-hidden="true">✓</div>
+      <span class="checkout-card-label">PEDIDO CRIADO</span>
+      <h1>Pedido recebido!</h1>
+      <p>Seu pedido foi registrado. O pagamento foi criado e aguarda confirmação.</p>
+
+      <div class="payment-result-card" aria-live="polite">
+        <div><span>Pedido</span><strong id="successOrderId">—</strong></div>
+        <div><span>Status do pedido</span><strong id="successOrderStatus">PENDENTE</strong></div>
+        <div><span>Pagamento</span><strong id="successPaymentStatus" class="payment-result-status is-pending">Aguardando pagamento</strong></div>
+        <div><span>Método</span><strong id="successPaymentMethod">PIX</strong></div>
+        <div><span>Referência</span><strong id="successPaymentReference">—</strong></div>
+      </div>
+
+      <div class="checkout-success-actions">
+        <a href="./pedidos.html" class="btn btn-primary">Ver meus pedidos</a>
+        <a href="../index.html" class="btn btn-outline">Voltar para a loja</a>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="../js/config.js"></script><script type="module" src="../js/app.js?v=20260923"></script>
+
+</body>
+</html>

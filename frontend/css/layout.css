@@ -1,0 +1,9 @@
+main { display: block; }
+
+section { display: block; }
+
+.product-page-wrapper { padding-bottom: 90px; }
+
+@media (min-width: 768px) {
+  .product-page-wrapper { padding-bottom: 0; }
+}

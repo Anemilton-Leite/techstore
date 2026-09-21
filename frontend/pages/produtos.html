@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Encontre smartphones, notebooks, periféricos, acessórios e outros eletrônicos na TechStore.">
+<meta name="theme-color" content="#101317">
+<title>Produtos | TechStore</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<a href="#main-content" class="sr-only">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="container header-bar">
+
+    <button type="button" class="icon-btn menu-button" id="menuButton" aria-label="Abrir menu" aria-controls="mobileDrawer" aria-expanded="false">☰</button>
+
+    <a href="../index.html" class="logo" aria-label="TechStore - página inicial">TECH<span>STORE</span></a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="../index.html" class="nav-link">Início</a>
+      <a href="./produtos.html" class="nav-link">Produtos</a>
+      <a href="./produtos.html?categoria=ofertas" class="nav-link nav-sale">🔥 Ofertas</a>
+      <a href="./produtos.html?categoria=novidades" class="nav-link">Novidades</a>
+      <a href="./produtos.html?categoria=mais-vendidos" class="nav-link">Mais vendidos</a>
+      <a href="./produtos.html?categoria=gaming" class="nav-link">Gaming</a>
+    </nav>
+    <nav id="dynamic-category-menu" class="dynamic-category-menu" aria-label="Categorias"></nav>
+
+    <div class="header-actions">
+      <div class="desktop-search search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="desktopSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+      </div>
+
+      <button type="button" class="icon-btn mobile-search-button" id="mobileSearchButton" aria-label="Abrir pesquisa">⌕</button>
+
+      <button type="button" class="icon-btn cart-button" id="cartButton" aria-label="Abrir carrinho" aria-controls="cartDrawer" aria-expanded="false">
+        🛒
+        <span class="cart-count" id="cartCount" aria-live="polite" hidden>0</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="mobile-search-panel container" id="mobileSearchPanel" hidden>
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="mobileSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" id="drawerScrim"></div>
+
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-header">
+    <span class="logo">Menu</span>
+    <button type="button" class="icon-btn" id="drawerClose" aria-label="Fechar menu">×</button>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navegação mobile">
+    <a href="../index.html" class="mobile-nav-link">Início</a>
+    <a href="./produtos.html" class="mobile-nav-link">Produtos</a>
+    <a href="./produtos.html?categoria=ofertas" class="mobile-nav-link nav-sale">🔥 Ofertas</a>
+    <a href="./produtos.html?categoria=novidades" class="mobile-nav-link">Novidades</a>
+    <a href="./produtos.html?categoria=mais-vendidos" class="mobile-nav-link">Mais vendidos</a>
+    <a href="./produtos.html?categoria=gaming" class="mobile-nav-link">Gaming</a>
+  </nav>
+</div>
+
+<main id="main-content">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <span class="current" id="breadcrumbCurrent">Produtos</span>
+    </nav>
+  </div>
+
+  <section class="catalog-header">
+    <div class="container">
+      <span class="catalog-eyebrow" id="catalogEyebrow">TECHSTORE</span>
+      <h1 id="catalogTitle">Todos os produtos</h1>
+      <p id="catalogDescription">Encontre tecnologia, acessórios e produtos para o seu dia a dia.</p>
+
+      <div class="catalog-search search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="catalogSearchInput" type="search" placeholder="Buscar neste catálogo..." autocomplete="off">
+      </div>
+    </div>
+  </section>
+
+  <section class="container catalog-layout">
+
+    <aside class="filters-panel" id="filtersPanel" aria-label="Filtros de produtos">
+      <div class="filters-panel-header">
+        <h2>Filtros</h2>
+        <button type="button" class="clear-filters" id="clearFiltersBtn">Limpar</button>
+        <button type="button" class="icon-btn" id="filtersClose" aria-label="Fechar filtros">×</button>
+      </div>
+
+      <fieldset class="filter-group">
+        <legend>Categoria</legend>
+        <label class="filter-option"><input type="checkbox" name="category" value="smartphones"><span>Smartphones</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="notebooks"><span>Notebooks</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="tablets"><span>Tablets</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="audio"><span>Áudio</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="monitores"><span>Monitores</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="perifericos"><span>Periféricos</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="acessorios"><span>Acessórios</span></label>
+        <label class="filter-option"><input type="checkbox" name="category" value="gaming"><span>Gaming</span></label>
+      </fieldset>
+
+      <fieldset class="filter-group">
+        <legend>Preço</legend>
+        <div class="price-fields">
+          <label><span>Mínimo</span><input type="number" id="minPrice" min="0" step="0.01" placeholder="R$ 0"></label>
+          <label><span>Máximo</span><input type="number" id="maxPrice" min="0" step="0.01" placeholder="R$ 10.000"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="filter-group">
+        <legend>Avaliação</legend>
+        <label class="filter-option"><input type="radio" name="rating" value="4"><span>★★★★★ 4 ou mais</span></label>
+        <label class="filter-option"><input type="radio" name="rating" value="3"><span>★★★★★ 3 ou mais</span></label>
+      </fieldset>
+
+      <fieldset class="filter-group">
+        <legend>Disponibilidade</legend>
+        <label class="filter-option"><input type="checkbox" id="inStock"><span>Apenas em estoque</span></label>
+      </fieldset>
+
+      <button type="button" class="btn btn-primary btn-block apply-filters-btn" id="applyFiltersBtn">Ver resultados</button>
+    </aside>
+
+    <div class="catalog-products">
+
+      <div class="catalog-toolbar">
+        <span class="product-count" id="productCount" aria-live="polite">0 produtos</span>
+
+        <div class="toolbar-actions">
+          <button type="button" class="filter-toggle-btn" id="filterToggleBtn" aria-controls="filtersPanel" aria-expanded="false">☷ Filtros</button>
+
+          <label class="sort-select" for="sortSelect">
+            <span>Ordenar:</span>
+            <select id="sortSelect">
+              <option value="relevance">Relevância</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+              <option value="rating">Mais avaliados</option>
+              <option value="newest">Mais recentes</option>
+              <option value="bestseller">Mais vendidos</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="product-grid" id="catalogGrid" aria-live="polite"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-state-icon" aria-hidden="true">⌕</div>
+        <h2>Nenhum produto encontrado</h2>
+        <p>Tente alterar os filtros ou realizar uma nova busca.</p>
+        <button type="button" class="btn btn-primary" id="emptyClearFiltersBtn">Limpar filtros</button>
+      </div>
+
+      <nav class="pagination" id="pagination" aria-label="Paginação de produtos"></nav>
+    </div>
+
+  </section>
+</main>
+
+<!-- Cart drawer -->
+<div class="drawer-scrim" id="cartScrim"></div>
+
+<aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho de compras" aria-hidden="true">
+  <div class="cart-header">
+    <span class="logo">Sua sacola</span>
+    <button type="button" class="icon-btn" id="cartClose" aria-label="Fechar carrinho">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal">R$ 0,00</strong>
+    </div>
+    <a href="./checkout.html" class="btn btn-primary btn-block">Finalizar compra</a>
+  </div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="../js/config.js"></script><script type="module" src="../js/app.js?v=20260923"></script>
+
+</body>
+</html>

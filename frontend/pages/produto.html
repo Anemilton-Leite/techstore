@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Detalhes do produto, preço, variantes, estoque e frete na TechStore.">
+<meta name="theme-color" content="#101317">
+<title>Produto | TechStore</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<a href="#main-content" class="sr-only">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="container header-bar">
+
+    <button type="button" class="icon-btn menu-button" id="menuButton" aria-label="Abrir menu" aria-controls="mobileDrawer" aria-expanded="false">☰</button>
+
+    <a href="../index.html" class="logo" aria-label="TechStore - página inicial">TECH<span>STORE</span></a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="../index.html" class="nav-link">Início</a>
+      <a href="./produtos.html" class="nav-link">Produtos</a>
+      <a href="./produtos.html?categoria=ofertas" class="nav-link nav-sale">🔥 Ofertas</a>
+      <a href="./produtos.html?categoria=novidades" class="nav-link">Novidades</a>
+      <a href="./produtos.html?categoria=mais-vendidos" class="nav-link">Mais vendidos</a>
+      <a href="./produtos.html?categoria=gaming" class="nav-link">Gaming</a>
+    </nav>
+    <nav id="dynamic-category-menu" class="dynamic-category-menu" aria-label="Categorias"></nav>
+
+    <div class="header-actions">
+      <div class="desktop-search search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="desktopSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+      </div>
+
+      <button type="button" class="icon-btn mobile-search-button" id="mobileSearchButton" aria-label="Abrir pesquisa">⌕</button>
+
+      <button type="button" class="icon-btn cart-button" id="cartButton" aria-label="Abrir carrinho" aria-controls="cartDrawer" aria-expanded="false">
+        🛒
+        <span class="cart-count" id="cartCount" aria-live="polite" hidden>0</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="mobile-search-panel container" id="mobileSearchPanel" hidden>
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="mobileSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" id="drawerScrim"></div>
+
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-header">
+    <span class="logo">Menu</span>
+    <button type="button" class="icon-btn" id="drawerClose" aria-label="Fechar menu">×</button>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navegação mobile">
+    <a href="../index.html" class="mobile-nav-link">Início</a>
+    <a href="./produtos.html" class="mobile-nav-link">Produtos</a>
+    <a href="./produtos.html?categoria=ofertas" class="mobile-nav-link nav-sale">🔥 Ofertas</a>
+    <a href="./produtos.html?categoria=novidades" class="mobile-nav-link">Novidades</a>
+    <a href="./produtos.html?categoria=mais-vendidos" class="mobile-nav-link">Mais vendidos</a>
+    <a href="./produtos.html?categoria=gaming" class="mobile-nav-link">Gaming</a>
+  </nav>
+</div>
+
+<main id="main-content" class="product-page-wrapper">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <a href="./produtos.html">Produtos</a>
+      <span aria-hidden="true">/</span>
+      <span class="current" id="breadcrumbProduct">Produto</span>
+    </nav>
+  </div>
+
+  <section class="container product-page" id="productPage" aria-labelledby="productTitle">
+
+    <div class="product-gallery">
+      <div class="product-main-image">
+        <img id="mainProductImage" src="" alt="">
+      </div>
+      <div class="product-thumbs" id="productThumbs" aria-label="Galeria de imagens"></div>
+    </div>
+
+    <article class="product-info">
+      <span class="product-category-label" id="productCategory">Categoria</span>
+      <h1 id="productTitle">Carregando produto...</h1>
+
+      <div class="product-rating-row" id="productRating"></div>
+
+      <div class="product-price-block">
+        <span class="old-price" id="productOldPrice"></span>
+        <strong class="price" id="productPrice">--</strong>
+        <span class="discount-tag" id="discountTag" hidden></span>
+      </div>
+
+      <p class="installments" id="installments"></p>
+
+      <div class="product-description">
+        <h2>Descrição</h2>
+        <p id="productDescription">Carregando descrição...</p>
+      </div>
+
+      <div id="productVariants"></div>
+
+      <div class="stock-row">
+        <span class="stock-dot" id="stockDot" aria-hidden="true"></span>
+        <span id="stockText">Verificando estoque...</span>
+      </div>
+
+      <section class="shipping-box">
+        <h2>Calcule o frete</h2>
+
+        <form id="shippingForm">
+          <label for="cepInput" class="sr-only">CEP</label>
+          <div class="shipping-form-row">
+            <input type="text" id="cepInput" inputmode="numeric" maxlength="9" placeholder="CEP · 00000-000" required>
+            <button type="submit" class="btn btn-outline">Calcular</button>
+          </div>
+        </form>
+
+        <div id="shippingResult" class="shipping-result" aria-live="polite"></div>
+      </section>
+
+      <div class="purchase-row">
+        <div class="qty-selector">
+          <button type="button" id="decreaseQty" aria-label="Diminuir quantidade">−</button>
+          <input type="number" id="quantityInput" value="1" min="1" max="10" aria-label="Quantidade">
+          <button type="button" id="increaseQty" aria-label="Aumentar quantidade">+</button>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-block" id="addToCartBtn">Adicionar à sacola</button>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="product-not-found container" id="productNotFound" hidden>
+    <h1>Produto não encontrado</h1>
+    <p>O produto que você procura não está disponível.</p>
+    <a href="./produtos.html" class="btn btn-primary">Voltar para produtos</a>
+  </div>
+
+  <section class="related-section container" aria-labelledby="relatedTitle">
+    <div class="section-heading">
+      <h2 id="relatedTitle">Você também pode gostar</h2>
+    </div>
+    <div class="product-grid" id="relatedGrid"></div>
+  </section>
+
+</main>
+
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta-price">
+    <span>Preço</span>
+    <strong id="stickyPrice">--</strong>
+  </div>
+  <button type="button" class="btn btn-primary" id="stickyAddToCartBtn">Comprar</button>
+</div>
+
+<!-- Cart drawer -->
+<div class="drawer-scrim" id="cartScrim"></div>
+
+<aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho de compras" aria-hidden="true">
+  <div class="cart-header">
+    <span class="logo">Sua sacola</span>
+    <button type="button" class="icon-btn" id="cartClose" aria-label="Fechar carrinho">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal">R$ 0,00</strong>
+    </div>
+    <a href="./checkout.html" class="btn btn-primary btn-block">Finalizar compra</a>
+  </div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="../js/config.js"></script><script type="module" src="../js/app.js?v=20260923"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+# ===== Backend (Java / Maven) =====
+backend/target/
+*.class
+
+# ===== Segredos — NUNCA commitar =====
+.env
+*.env
+!*.env.example
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.iml
+
+# ===== Ferramentas de IA locais (estado/memória por sessão) =====
+.kombai/
+.eucode/
+
+# ===== SO =====
+.DS_Store
+Thumbs.db

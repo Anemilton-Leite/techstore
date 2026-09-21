@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TechStore: smartphones, notebooks, periféricos e mais, com entrega rápida e os melhores preços.">
+<meta name="theme-color" content="#101317">
+<title>TechStore | Tecnologia com os melhores preços</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<a href="#main-content" class="sr-only">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="container header-bar">
+
+    <button type="button" class="icon-btn menu-button" id="menuButton" aria-label="Abrir menu" aria-controls="mobileDrawer" aria-expanded="false">☰</button>
+
+    <a href="./index.html" class="logo" aria-label="TechStore - página inicial">TECH<span>STORE</span></a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="./index.html" class="nav-link">Início</a>
+      <a href="pages/produtos.html" class="nav-link">Produtos</a>
+      <a href="pages/produtos.html?categoria=ofertas" class="nav-link nav-sale">🔥 Ofertas</a>
+      <a href="pages/produtos.html?categoria=novidades" class="nav-link">Novidades</a>
+      <a href="pages/produtos.html?categoria=mais-vendidos" class="nav-link">Mais vendidos</a>
+      <a href="pages/produtos.html?categoria=gaming" class="nav-link">Gaming</a>
+    </nav>
+    <nav id="dynamic-category-menu" class="dynamic-category-menu" aria-label="Categorias"></nav>
+
+    <div class="header-actions">
+      <div class="desktop-search search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="desktopSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+      </div>
+
+      <button type="button" class="icon-btn mobile-search-button" id="mobileSearchButton" aria-label="Abrir pesquisa">⌕</button>
+
+      <button type="button" class="icon-btn cart-button" id="cartButton" aria-label="Abrir carrinho" aria-controls="cartDrawer" aria-expanded="false">
+        🛒
+        <span class="cart-count" id="cartCount" aria-live="polite" hidden>0</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="mobile-search-panel container" id="mobileSearchPanel" hidden>
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="mobileSearchInput" type="search" placeholder="Buscar produtos..." autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" id="drawerScrim"></div>
+
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-header">
+    <span class="logo">Menu</span>
+    <button type="button" class="icon-btn" id="drawerClose" aria-label="Fechar menu">×</button>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navegação mobile">
+    <a href="./index.html" class="mobile-nav-link">Início</a>
+    <a href="pages/produtos.html" class="mobile-nav-link">Produtos</a>
+    <a href="pages/produtos.html?categoria=ofertas" class="mobile-nav-link nav-sale">🔥 Ofertas</a>
+    <a href="pages/produtos.html?categoria=novidades" class="mobile-nav-link">Novidades</a>
+    <a href="pages/produtos.html?categoria=mais-vendidos" class="mobile-nav-link">Mais vendidos</a>
+    <a href="pages/produtos.html?categoria=gaming" class="mobile-nav-link">Gaming</a>
+  </nav>
+</div>
+
+<main id="main-content">
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">TECNOLOGIA PARA O SEU DIA A DIA</span>
+      <h1>Os melhores produtos de tecnologia em um só lugar</h1>
+      <p>Smartphones, notebooks, periféricos e acessórios com entrega rápida, preços justos e a curadoria da TechStore.</p>
+
+      <div class="hero-actions">
+        <a href="pages/produtos.html" class="btn btn-primary">Ver todos os produtos</a>
+        <a href="pages/produtos.html?categoria=ofertas" class="btn btn-outline">Ver ofertas</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <nav class="category-strip" aria-label="Categorias">
+      <a href="pages/produtos.html?categoria=smartphones" class="category-chip">📱 Smartphones</a>
+      <a href="pages/produtos.html?categoria=notebooks" class="category-chip">💻 Notebooks</a>
+      <a href="pages/produtos.html?categoria=audio" class="category-chip">🎧 Áudio</a>
+      <a href="pages/produtos.html?categoria=monitores" class="category-chip">🖥️ Monitores</a>
+      <a href="pages/produtos.html?categoria=gaming" class="category-chip">🎮 Gaming</a>
+      <a href="pages/produtos.html?categoria=acessorios" class="category-chip">⌚ Acessórios</a>
+    </nav>
+  </div>
+
+  <section class="home-section container">
+    <div class="home-section-head">
+      <h2>Destaques da semana</h2>
+      <a href="pages/produtos.html" class="see-all-link">Ver tudo</a>
+    </div>
+
+    <div class="product-grid" id="homeFeaturedGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="home-section container">
+    <div class="home-section-head">
+      <h2>Ofertas em destaque</h2>
+      <a href="pages/produtos.html?categoria=ofertas" class="see-all-link">Ver todas</a>
+    </div>
+
+    <div class="product-grid" id="homeOffersGrid" aria-live="polite"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <h3>TechStore</h3>
+        <p>Tecnologia com curadoria, preço justo e entrega rápida para todo o Brasil.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Institucional</h3>
+        <a href="#">Sobre nós</a>
+        <a href="#">Trabalhe conosco</a>
+        <a href="#">Política de privacidade</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Ajuda</h3>
+        <a href="#">Trocas e devoluções</a>
+        <a href="#">Formas de pagamento</a>
+        <a href="#">Prazos de entrega</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Atendimento</h3>
+        <p>contato@techstore.com.br</p>
+        <p>Seg. a sex., 9h às 18h</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom container">
+      © 2026 TechStore. Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="drawer-scrim" id="cartScrim"></div>
+
+<aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho de compras" aria-hidden="true">
+  <div class="cart-header">
+    <span class="logo">Sua sacola</span>
+    <button type="button" class="icon-btn" id="cartClose" aria-label="Fechar carrinho">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal">R$ 0,00</strong>
+    </div>
+    <a href="pages/checkout.html" class="btn btn-primary btn-block">Finalizar compra</a>
+  </div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js"></script><script type="module" src="js/app.js?v=20260923"></script>
+
+</body>
+</html>

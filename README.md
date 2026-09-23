@@ -7,7 +7,7 @@ administrativo e banco de dados Postgres versionado por migrations.
 > 🔗 **Demo:** https://techstore-demo-anemilton.netlify.app
 > 🚀 **API:** https://techstore-api-0vp3.onrender.com
 > 📚 **Swagger:** https://techstore-api-0vp3.onrender.com/swagger-ui.html
-> 🎥 **Vídeo/GIF:** _adicione aqui um screen recording curto do fluxo de compra_
+> 🎥 **Demo animada:** ![Fluxo da loja](./docs/demo/demo-flow.gif)
 
 ---
 
@@ -64,6 +64,21 @@ flowchart LR
 - Webhook do Mercado Pago com **validação de assinatura HMAC-SHA256** e proteção contra replay
 - Schema versionado com Flyway (13 migrations)
 - Documentação interativa da API via Swagger UI (`/swagger-ui.html`)
+
+## Demo visual
+
+Capturas reais da aplicação deployada (ambiente de **sandbox** do Mercado Pago —
+nenhuma cobrança real é processada).
+
+| Vitrine | Produto |
+|---|---|
+| ![Vitrine](./docs/demo/01-home.png) | ![Produto](./docs/demo/02-produto.png) |
+| **Catálogo** | **Login** |
+| ![Catálogo](./docs/demo/03-produtos.png) | ![Login](./docs/demo/04-login.png) |
+
+O fluxo de pagamento foi validado de ponta a ponta em sandbox: o checkout cria
+uma preferência no Mercado Pago (Checkout Pro), o webhook assinado (HMAC-SHA256)
+confirma o pagamento e o pedido transita para **PAGO** com atualização de estoque.
 
 ## Estrutura do repositório
 

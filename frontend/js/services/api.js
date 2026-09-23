@@ -6,6 +6,8 @@ const API_BASE_URL =
     window.__TECHSTORE_API_BASE_URL__ ||
     "http://localhost:8080/api/v1";
 
+const REQUEST_TIMEOUT_MS = 15000;
+
 
 async function request(
     endpoint,
@@ -31,14 +33,28 @@ async function request(
     }
 
 
-    const response =
-        await fetch(
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    let response;
+    try {
+        response = await fetch(
             `${API_BASE_URL}${endpoint}`,
             {
                 ...options,
-                headers
+                headers,
+                signal: controller.signal
             }
         );
+    } catch (error) {
+        if (error.name === "AbortError") {
+            throw new Error("O serviço está demorando para responder. Tente novamente.");
+        }
+
+        throw new Error("Não foi possível conectar ao serviço. Tente novamente.");
+    } finally {
+        window.clearTimeout(timeout);
+    }
 
 
     let data = null;

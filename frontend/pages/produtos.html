@@ -177,6 +177,13 @@
         <button type="button" class="btn btn-primary" id="emptyClearFiltersBtn">Limpar filtros</button>
       </div>
 
+      <div class="empty-state" id="catalogErrorState" hidden>
+        <div class="empty-state-icon" aria-hidden="true">!</div>
+        <h2>Não foi possível carregar os produtos</h2>
+        <p id="catalogErrorMessage">Verifique sua conexão e tente novamente.</p>
+        <button type="button" class="btn btn-primary" id="catalogRetryBtn">Tentar novamente</button>
+      </div>
+
       <nav class="pagination" id="pagination" aria-label="Paginação de produtos"></nav>
     </div>
 
@@ -205,7 +212,7 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="../js/config.js"></script><script type="module" src="../js/app.js?v=20260923"></script>
+<script src="../js/config.js?v=20260923"></script><script type="module" src="../js/app.js?v=20260923"></script>
 
 </body>
 </html>

@@ -24,6 +24,8 @@ const state = {
   tabFilter: null
 };
 
+let eventsReady = false;
+
 function setText(selector, text) {
   const el = document.querySelector(selector);
   if (el) el.textContent = text;
@@ -132,8 +134,10 @@ function sortList(list) {
 function render(list) {
   const grid = document.querySelector("#catalogGrid");
   const empty = document.querySelector("#emptyState");
+  const errorState = document.querySelector("#catalogErrorState");
   const pagination = document.querySelector("#pagination");
 
+  errorState.hidden = true;
   setText("#productCount", list.length === 1 ? "1 produto" : `${list.length} produtos`);
 
   if (!list.length) {
@@ -209,6 +213,9 @@ function toggleFiltersPanel(forceOpen) {
 }
 
 function setupEvents() {
+  if (eventsReady) return;
+  eventsReady = true;
+
   document.querySelector("#catalogSearchInput")?.addEventListener(
     "input",
     debounce((event) => {
@@ -233,6 +240,7 @@ function setupEvents() {
 
   document.querySelector("#clearFiltersBtn")?.addEventListener("click", clearFilters);
   document.querySelector("#emptyClearFiltersBtn")?.addEventListener("click", clearFilters);
+  document.querySelector("#catalogRetryBtn")?.addEventListener("click", initializeProductsPage);
 
   document.querySelector("#filterToggleBtn")?.addEventListener("click", () => toggleFiltersPanel());
   document.querySelector("#filtersClose")?.addEventListener("click", () => toggleFiltersPanel(false));
@@ -250,7 +258,11 @@ async function initializeProductsPage() {
     applyFilters();
   } catch (error) {
     console.error("Erro ao carregar produtos:", error);
-    setText("#productCount", error.message);
+    document.querySelector("#emptyState").hidden = true;
+    document.querySelector("#catalogErrorState").hidden = false;
+    document.querySelector("#pagination").innerHTML = "";
+    setText("#productCount", "Não disponível");
+    setText("#catalogErrorMessage", error.message || "Verifique sua conexão e tente novamente.");
   }
 }
 

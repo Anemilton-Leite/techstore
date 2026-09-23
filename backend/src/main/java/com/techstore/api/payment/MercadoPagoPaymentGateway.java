@@ -1,14 +1,17 @@
 package com.techstore.api.payment;
 
 import com.techstore.api.entity.Order;
+import com.techstore.api.entity.OrderItem;
 import com.techstore.api.exception.BusinessRuleException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
-import java.util.Map;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
@@ -39,34 +42,37 @@ public class MercadoPagoPaymentGateway implements PaymentGateway {
         }
 
         String externalReference = "TECHSTORE-ORDER-" + order.getId();
-        OrderRequest body = new OrderRequest(
-            "online",
-            order.getTotalAmount().setScale(2),
+        PreferenceRequest body = new PreferenceRequest(
+                order.getItems().stream()
+                        .map(item -> new PreferenceItem(
+                                item.getProduct().getName(),
+                                item.getQuantity(),
+                                item.getUnitPrice().setScale(2),
+                                "BRL"))
+                        .toList(),
+                new Payer(order.getCustomer().getEmail()),
                 externalReference,
-            "manual",
-            new Payer(order.getCustomer().getEmail()),
-            new OrderConfig(
-                notificationUrl,
-                new OnlineConfig(
-                    confirmationUrl(order),
-                    confirmationUrl(order),
-                    confirmationUrl(order),
-                    "approved"))
-        );
+                notificationUrl);
 
-        PreferenceResponse response = client.post()
-            .uri("/v1/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + accessToken)
-            .header("X-Idempotency-Key", UUID.randomUUID().toString())
-                .body(body)
-                .retrieve()
-                .body(PreferenceResponse.class);
+        try {
+            PreferenceResponse response = client.post()
+                    .uri("/checkout/preferences")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + accessToken)
+                    .header("X-Idempotency-Key", UUID.randomUUID().toString())
+                    .body(body)
+                    .retrieve()
+                    .body(PreferenceResponse.class);
 
-        if (response == null || response.id() == null || response.checkoutUrl() == null) {
-            throw new BusinessRuleException("Mercado Pago não retornou uma URL de checkout.");
+            if (response == null || response.id() == null || response.checkoutUrl() == null) {
+                throw new BusinessRuleException("Mercado Pago não retornou uma URL de checkout.");
+            }
+            return new GatewayCheckout(externalReference, response.checkoutUrl(), response.id());
+        } catch (RestClientResponseException exception) {
+            throw new BusinessRuleException(
+                    "Mercado Pago rejeitou a preferência (HTTP " + exception.getStatusCode().value()
+                            + "): " + exception.getResponseBodyAsString());
         }
-        return new GatewayCheckout(externalReference, response.checkoutUrl(), response.id());
     }
 
     @Override
@@ -101,27 +107,26 @@ public class MercadoPagoPaymentGateway implements PaymentGateway {
         return frontendBaseUrl + "/pages/confirmacao.html?id=" + order.getId();
     }
 
-        private record OrderRequest(
-            String type,
-            @com.fasterxml.jackson.annotation.JsonProperty("total_amount") BigDecimal totalAmount,
-            @com.fasterxml.jackson.annotation.JsonProperty("external_reference") String externalReference,
-            @com.fasterxml.jackson.annotation.JsonProperty("processing_mode") String processingMode,
+    private record PreferenceRequest(
+            List<PreferenceItem> items,
             Payer payer,
-            OrderConfig config) {}
+            @com.fasterxml.jackson.annotation.JsonProperty("external_reference") String externalReference,
+            @com.fasterxml.jackson.annotation.JsonProperty("notification_url") String notificationUrl) {}
+
+    private record PreferenceItem(
+            String title,
+            Integer quantity,
+            @com.fasterxml.jackson.annotation.JsonProperty("unit_price") BigDecimal unitPrice,
+            @com.fasterxml.jackson.annotation.JsonProperty("currency_id") String currencyId) {}
 
         private record Payer(String email) {}
 
-        private record OrderConfig(
-            @com.fasterxml.jackson.annotation.JsonProperty("notification_url") String notificationUrl,
-            OnlineConfig online) {}
-
-        private record OnlineConfig(
-            @com.fasterxml.jackson.annotation.JsonProperty("success_url") String successUrl,
-            @com.fasterxml.jackson.annotation.JsonProperty("failure_url") String failureUrl,
-            @com.fasterxml.jackson.annotation.JsonProperty("pending_url") String pendingUrl,
-            @com.fasterxml.jackson.annotation.JsonProperty("auto_return") String autoReturn) {}
-
     private record PreferenceResponse(
             String id,
-            @com.fasterxml.jackson.annotation.JsonProperty("checkout_url") String checkoutUrl) {}
+            @com.fasterxml.jackson.annotation.JsonProperty("init_point") String initPoint,
+            @com.fasterxml.jackson.annotation.JsonProperty("sandbox_init_point") String sandboxInitPoint) {
+        String checkoutUrl() {
+            return sandboxInitPoint != null ? sandboxInitPoint : initPoint;
+        }
+    }
 }

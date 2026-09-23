@@ -10,11 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/v1/payments")
 @Tag(name = "Payments", description = "Pagamentos")
 public class PaymentController {
+    private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
     private final PaymentService paymentService;
 
     public PaymentController(PaymentService paymentService) {
@@ -55,6 +58,11 @@ public class PaymentController {
             @RequestParam(name = "data.id") String paymentId,
             @RequestHeader(name = "x-signature", required = false) String signature,
             @RequestHeader(name = "x-request-id", required = false) String requestId) {
+        logger.info("Mercado Pago webhook recebido: dataIdPresent={}, signaturePresent={}, requestIdPresent={}, signatureLength={}",
+                paymentId != null && !paymentId.isBlank(),
+                signature != null && !signature.isBlank(),
+                requestId != null && !requestId.isBlank(),
+                signature == null ? 0 : signature.length());
         paymentService.processGatewayWebhook(paymentId, signature, requestId);
         return ResponseEntity.ok().build();
     }

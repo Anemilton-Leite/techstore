@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -34,6 +36,7 @@ import java.util.UUID;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+    private static final Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
@@ -203,6 +206,10 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private void validateWebhookSignature(String paymentId, String signature, String requestId) {
+        logger.info("Validando assinatura do webhook: secretConfigured={}, paymentIdPresent={}, requestIdPresent={}",
+                webhookSecret != null && !webhookSecret.isBlank(),
+                paymentId != null && !paymentId.isBlank(),
+                requestId != null && !requestId.isBlank());
         if (webhookSecret == null || webhookSecret.isBlank() || signature == null || requestId == null) {
             throw new BusinessRuleException("Assinatura do webhook inválida.");
         }
@@ -215,6 +222,8 @@ public class PaymentServiceImpl implements PaymentService {
             if (values[0].equals("v1")) providedHash = values[1];
         }
         if (timestamp == null || providedHash == null) {
+            logger.warn("Assinatura do webhook sem ts/v1 completos: timestampPresent={}, hashPresent={}",
+                    timestamp != null, providedHash != null);
             throw new BusinessRuleException("Assinatura do webhook inválida.");
         }
         try {
@@ -231,6 +240,12 @@ public class PaymentServiceImpl implements PaymentService {
             mac.init(new SecretKeySpec(webhookSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
             String expectedHash = hex(mac.doFinal(manifest.getBytes(StandardCharsets.UTF_8)));
             if (!MessageDigest.isEqual(expectedHash.getBytes(StandardCharsets.UTF_8), providedHash.getBytes(StandardCharsets.UTF_8))) {
+                logger.warn("HMAC do webhook divergente: timestampPresent={}, requestIdLength={}, paymentIdLength={}, providedHashLength={}, expectedHashLength={}",
+                        timestamp != null,
+                        requestId.length(),
+                        paymentId.length(),
+                        providedHash.length(),
+                        expectedHash.length());
                 throw new BusinessRuleException("Assinatura do webhook inválida.");
             }
         } catch (Exception exception) {

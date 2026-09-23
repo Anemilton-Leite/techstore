@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -159,9 +160,24 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     public void processGatewayWebhook(String paymentId, String signature, String requestId) {
         validateWebhookSignature(paymentId, signature, requestId);
-        GatewayPaymentStatus gatewayPayment = paymentGateway.getPayment(paymentId);
+
+        GatewayPaymentStatus gatewayPayment;
+        try {
+            gatewayPayment = paymentGateway.getPayment(paymentId);
+        } catch (RestClientResponseException exception) {
+            if (exception.getStatusCode().is4xxClientError()) {
+                // Pagamento inexistente/indisponível no gateway: reconhecemos a notificação
+                // (2xx) para evitar retentativas inúteis do Mercado Pago.
+                logger.warn("Webhook reconhecido sem processar: gateway não encontrou o pagamento dataId={}, status={}",
+                        paymentId, exception.getStatusCode());
+                return;
+            }
+            throw exception;
+        }
         if (gatewayPayment.externalReference() == null || !gatewayPayment.externalReference().startsWith("TECHSTORE-ORDER-")) {
-            throw new BusinessRuleException("Referência externa do pagamento inválida.");
+            // Notificação de pagamento que não pertence a esta loja: apenas reconhecemos.
+            logger.warn("Webhook reconhecido sem processar: referência externa não pertence à loja dataId={}", paymentId);
+            return;
         }
 
         Long orderId;

@@ -1,33 +1,32 @@
-**Do carrinho ao pedido PAGO: construí um e-commerce full-stack do zero — e o pagamento é de verdade (em sandbox).** 🛒➡️✅
+Construir telas bonitas é importante, mas garantir que o dinheiro caia, o pedido mude para PAGO e o estoque não zere por engano é onde o verdadeiro desafio da engenharia de software acontece.
 
-Passei os últimos meses construindo o **TechStore**, um e-commerce completo para o meu portfólio, com frontend e backend próprios e deploy público. Hoje ele está no ar e o fluxo de compra funciona de ponta a ponta.
+Fiz exatamente isso no TechStore, um e-commerce full-stack que desenvolvi do zero nas últimas semanas.
 
-**O que dá para testar agora:**
-🔗 Demo: https://techstore-demo-anemilton.netlify.app
-📚 API documentada (Swagger): https://techstore-api-0vp3.onrender.com/swagger-ui.html
-💻 Código: https://github.com/Anemilton-Leite/techstore
+O foco não foi só fazer funcionar, foi fazer certo:
 
-**Destaques técnicos:**
-• **Backend:** Java 17 + Spring Boot 3, Spring Security com JWT, Spring Data JPA e PostgreSQL versionado por **13 migrations Flyway**.
-• **Pagamento real (sandbox):** integração com **Mercado Pago Checkout Pro** — o checkout cria a preferência, e um **webhook com assinatura HMAC-SHA256** (com proteção contra replay) confirma o pagamento e move o pedido para **PAGO**, atualizando o estoque. Validei a assinatura de ponta a ponta contra o painel do Mercado Pago.
-• **Concorrência sem overselling:** lock pessimista no estoque + **Idempotency-Key** no checkout (reenviar a requisição não duplica o pedido).
-• **Frontend:** HTML/CSS/JS puro, sem build step e sem framework — a mesma base roda em dev e no deploy.
-• **Deploy:** push na `main` publica sozinho no **Netlify** (frontend) e **Render** (API).
+🔒 **Segurança de ponta:** Webhook do Mercado Pago validado com HMAC-SHA256 e proteção contra replay attack.
 
-**Como trabalhei (transparência):** desenvolvi este projeto usando **LLMs como ferramenta de assistência** e **SDD (Spec-Driven Development)** — parti de especificações claras de cada funcionalidade e usei IA para acelerar implementação, revisão e depuração. As decisões de arquitetura, os requisitos e a validação final foram meus; o LLM entrou como par técnico, não como autor. Acredito que saber conduzir IA com critério — especificar bem, revisar o que ela gera e testar de ponta a ponta — é hoje uma competência central de engenharia, e quis demonstrá-la abertamente em vez de escondê-la.
+🛡️ **Resiliência:** Lock Pessimista no PostgreSQL para evitar vendas sem estoque (overselling) e suporte a Idempotency-Key.
 
-**Transparência sobre o escopo:** é um projeto de estudo/portfólio rodando em **ambiente sandbox** do Mercado Pago — nenhuma cobrança real é processada, e não é um sistema em produção. O objetivo era demonstrar arquitetura, segurança e integração real com um gateway de pagamento.
+⚙️ **Stack Sólida:** Java 17, Spring Boot 3, Spring Security (JWT) e Flyway.
 
-Se você recruta ou trabalha com backend Java/Spring ou integrações de pagamento: fico feliz com feedback no código ou no repositório. 🙌
+🚀 **Deploy automatizado:** push na `main` publica sozinho no Netlify (frontend) e no Render (API).
 
-**Aberto a oportunidades** como desenvolvedor backend/full-stack Java.
+Além da parte técnica, usei Spec-Driven Development (SDD) com IA como copiloto para acelerar o desenvolvimento, mantendo o rigor técnico, a arquitetura e as regras de negócio inteiramente sob minha responsabilidade.
 
-#Java #SpringBoot #MercadoPago #PostgreSQL #Flyway #FullStack #AI #LLM #SpecDrivenDevelopment #Portfólio #OpenToWork
+Curioso para ver como ficou?
+👉 **Demo ao vivo:** https://techstore-demo-anemilton.netlify.app
+👉 **Documentação (Swagger):** https://techstore-api-0vp3.onrender.com/swagger-ui.html
+👉 **Repositório no GitHub:** https://github.com/Anemilton-Leite/techstore
+
+**Transparência:** é um projeto de estudo/portfólio rodando em ambiente **sandbox** do Mercado Pago — nenhuma cobrança real é processada, e não é um sistema em produção. O objetivo foi demonstrar arquitetura, segurança e integração real com um gateway de pagamento.
+
+Recrutadores, engenheiros Java/Spring e QAs: o código está aberto e adoraria receber o feedback de vocês! Estou em busca de novas oportunidades como Desenvolvedor Front-end / Backend / QA. 🎯
+
+#Java #SpringBoot #MercadoPago #PostgreSQL #Flyway #FullStack #Backend #SoftwareEngineering #SpecDrivenDevelopment #Portfólio #OpenToWork
 
 ---
 
 **Dicas de publicação:**
-- Anexe `docs/demo/demo-flow.gif` como mídia do post (ou converta para MP4 — vídeo nativo tem mais alcance que GIF parado no LinkedIn).
-- Alternativa: anexe os 4 PNGs como carrossel de imagens.
-- Opcionalmente adicione o screenshot do painel admin (`docs/demo/05-admin-pedidos.png`) como segunda imagem.
+- Anexe `docs/demo/demo-flow.mp4` (vídeo nativo, 6,4s) ou `docs/demo/demo-flow.gif`; alternativa: carrossel com os 4 PNGs (`01-home`, `02-produto`, `03-produtos`, `04-login`).
 - Fixe o post no topo do perfil.

@@ -21,7 +21,15 @@ Curioso para ver como ficou?
 
 **Transparência:** é um projeto de estudo/portfólio rodando em ambiente **sandbox** do Mercado Pago — nenhuma cobrança real é processada, e não é um sistema em produção. O objetivo foi demonstrar arquitetura, segurança e integração real com um gateway de pagamento.
 
-Recrutadores, engenheiros Java/Spring e QAs: o código está aberto e adoraria receber o feedback de vocês! Estou em busca de novas oportunidades como Desenvolvedor Front-end / Backend / QA. 🎯
+**Quem pode se interessar por este projeto:**
+👤 Recrutadores e Tech Recruiters em busca de dev Java/Spring com projeto real de ponta a ponta
+👤 Engineering Managers e Tech Leads que valorizam segurança, concorrência e idempotência bem resolvidas
+👤 Desenvolvedores Backend Java/Spring interessados em integração com gateway de pagamento (Mercado Pago, webhooks assinados)
+👤 Desenvolvedores Full-stack que curtem arquitetura REST limpa e frontend sem framework
+👤 QAs e engenheiros de qualidade que queiram ver fluxos de checkout testáveis e observáveis
+👤 Devs em transição de carreira / estudantes procurando um exemplo de portfólio com SDD + IA
+
+O código está aberto e adoraria receber o feedback de vocês! Estou em busca de novas oportunidades como Desenvolvedor Front-end / Backend / QA. 🎯
 
 #Java #SpringBoot #MercadoPago #PostgreSQL #Flyway #FullStack #Backend #SoftwareEngineering #SpecDrivenDevelopment #Portfólio #OpenToWork
 
